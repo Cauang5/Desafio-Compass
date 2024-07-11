@@ -5,14 +5,20 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "item")
 @Inheritance(strategy = InheritanceType.JOINED)
 //Entidade super, que definirá o Id e a descrição dos itens
-public abstract class Item { // A classe Item é abstrata para não ser instanciada o objeto item.
+public class Item { // A classe Item é abstrata para não ser instanciada o objeto item.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) // Define a obrigatoriadade da coluna não ser nula
+    // Define a obrigatoriadade da coluna não ser nula
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "dc_id")
+    private DistributionCenter distributionCenter;
+
 }

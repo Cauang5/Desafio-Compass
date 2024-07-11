@@ -1,13 +1,11 @@
 package org.compass.desafio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Entity
+@Table(name = "hygiene_product")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class HygieneProduct extends Item{
@@ -16,5 +14,8 @@ public class HygieneProduct extends Item{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String type;
-    private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "dc_id")
+    private DistributionCenter distributionCenter;
 }

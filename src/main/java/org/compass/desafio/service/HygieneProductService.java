@@ -10,7 +10,7 @@ public class HygieneProductService {
     private final HygieneProductRepository hygieneProductRepository = new HygieneProductRepository();
 
     public HygieneProduct save(HygieneProduct hygieneProduct) {
-        if (getTotalQuantity() + hygieneProduct.getQuantity() > 1000) {
+        if (getTotalQuantity()  > 1000) {
             throw new IllegalArgumentException("Clothing limit exceeded, cannot add more!");
         }
         return hygieneProductRepository.save(hygieneProduct);

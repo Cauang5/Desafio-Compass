@@ -1,12 +1,12 @@
 package org.compass.desafio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
+@Table(name = "distribution_center")
 @Data
 public class DistributionCenter {
 
@@ -20,9 +20,12 @@ public class DistributionCenter {
     private String state;
     private String cep;
 
-    private int ClothingStock;
-    private int FoodStock;
-    private int HygieneProductStock;
+    private int ClothingStock = 1000;
+    private int FoodStock = 1000;
+    private int HygieneProductStock = 1000;
+
+    @OneToMany(mappedBy = "distributionCenter")
+    private List<Item> items;
 
     @Override
     public String toString() {

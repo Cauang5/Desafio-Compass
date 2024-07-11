@@ -10,7 +10,7 @@ public class ClothingService {
     private final ClothingRepository clothingRepository = new ClothingRepository();
 
     public Clothing save(Clothing clothing) {
-        if (getTotalQuantity() + clothing.getQuantity() > 1000) {
+        if (getTotalQuantity() > 1000) {
             throw new IllegalArgumentException("Clothing limit exceeded, cannot add more!");
         }
         return clothingRepository.save(clothing);
