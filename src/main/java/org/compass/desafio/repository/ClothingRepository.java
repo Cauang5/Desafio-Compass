@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.compass.desafio.model.Clothing;
+import org.compass.desafio.model.DistributionCenter;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public class ClothingRepository {
     public Clothing save(Clothing clothing) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
+
+        DistributionCenter dc = clothing.getDistributionCenter();
 
         try {
             transaction = em.getTransaction();

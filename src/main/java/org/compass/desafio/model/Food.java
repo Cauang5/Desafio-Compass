@@ -1,15 +1,13 @@
 package org.compass.desafio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "food_item")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Food extends Item{
@@ -17,7 +15,11 @@ public class Food extends Item{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int quantity;
     private String unitOfMeasure;
     private LocalDate expirationDate;
+    private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "dc_id")
+    private DistributionCenter distributionCenter;
 }

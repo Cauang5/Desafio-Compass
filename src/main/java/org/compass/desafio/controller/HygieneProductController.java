@@ -14,11 +14,10 @@ public class HygieneProductController {
         this.hygieneProductService = new HygieneProductService();
     }
 
-    public void createHygieneProduct(String type, String description, int quantity) {
+    public void createHygieneProduct(String type, String description) {
         HygieneProduct hygieneProduct = new HygieneProduct();
         hygieneProduct.setType(String.valueOf(Type.fromTipo(type)));
         hygieneProduct.setDescription(description);
-        hygieneProduct.setQuantity(quantity);
         hygieneProductService.save(hygieneProduct);
     }
 
@@ -31,12 +30,11 @@ public class HygieneProductController {
         return hygieneProductService.findById(id);
     }
 
-    public void updateHygieneProduct(Long id, String type, String description, int quantity) {
+    public void updateHygieneProduct(Long id, String type, String description) {
         HygieneProduct hygieneProduct = hygieneProductService.findById(id);
         if (hygieneProduct != null) {
             hygieneProduct.setType(String.valueOf(Type.fromTipo(type)));
             hygieneProduct.setDescription(description);
-            hygieneProduct.setQuantity(quantity);
             hygieneProductService.update(hygieneProduct);
         } else {
             System.out.println("HygieneProduct not found with ID: " + id);
