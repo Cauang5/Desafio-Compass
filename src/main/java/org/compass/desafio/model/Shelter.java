@@ -36,4 +36,20 @@ public class Shelter {
     @OneToMany(mappedBy = "shelter", fetch = FetchType.EAGER)
     private List<HygieneProduct> hygieneProducts;
 
+    @Override
+    public String toString() {
+        return "Shelter{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", shelterManager='" + shelterManager + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", capacity=" + capacity +
+                ", occupancy=" + occupancy + "% "+
+                ", clothingStock=" + clothingStock +
+                ", foodStock=" + foodStock +
+                ", hygieneProductStock=" + hygieneProductStock +
+                '}';
+    }
 }

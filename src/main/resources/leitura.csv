@@ -1,4 +1,18 @@
 item,description,unitOfMeasure,expirationDate,quantity,type,gender,size,distributionCenterId
-Food,Apple,kilos,2024-12-31,50,,,,1
-HygieneProduct,Colgate,,,,pasta de dente,,,2
-Clothing,Camisa,,,,,M,P,3
+Food,Arroz,kilos,2025-01-15,8,,,,1
+Food,Feijão,kilos,2025-02-20,9,,,,2
+Food,Leite,litros,2024-09-10,10,,,,2
+Food,Carne,gramas,2024-08-15,500,,,,3
+Food,Água,mililitros,2026-03-05,300,,,,3
+
+HygieneProduct,Sabonete Dove,,,,sabonete,,,1
+HygieneProduct,Escova Oral-B,,,,escova de dente,,,1
+HygieneProduct,Absorvente Always,,,,absorvente,,,2
+HygieneProduct,Pasta Colgate,,,,pasta de dente,,,2
+HygieneProduct,Sabonete Lux,,,,sabonete,,,3
+
+Clothing,Calça Jeans,,,,,G,F,3
+Clothing,Jaqueta,,,,,infantil,M,3
+Clothing,Sapato,,,,,P,M,1
+Clothing,Bermuda,,,,,PP,F,1
+Clothing,Vestido,,,,,M,F,2
