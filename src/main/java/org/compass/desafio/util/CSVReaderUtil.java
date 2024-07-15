@@ -2,9 +2,11 @@ package org.compass.desafio.util;
 
 import com.opencsv.exceptions.CsvValidationException;
 import org.compass.desafio.model.Clothing;
+import org.compass.desafio.model.DistributionCenter;
 import org.compass.desafio.model.Food;
 import org.compass.desafio.model.HygieneProduct;
 import org.compass.desafio.service.ClothingService;
+import org.compass.desafio.service.DistributionCenterService;
 import org.compass.desafio.service.FoodService;
 import org.compass.desafio.service.HygieneProductService;
 
@@ -22,6 +24,7 @@ public class CSVReaderUtil {
     private final ClothingService clothingService = new ClothingService();
     private final HygieneProductService hygieneProductService = new HygieneProductService();
     private final FoodService foodService = new FoodService();
+    DistributionCenterService dcService = new DistributionCenterService();
 
     public void readerFileCSV(String file) {
 
@@ -34,30 +37,50 @@ public class CSVReaderUtil {
                 switch (item) {
                     case "Clothing":
                         Clothing clothing = new Clothing();
-                        clothing.setDescription(line[1]);
-                        clothing.setGender(line[7]);
-                        clothing.setSize(line[8]);
+                        clothing.setDescription(line[0]);
+                        clothing.setGender(line[6]);
+                        clothing.setSize(line[7]);
+
+                        Long distributionCenterId = Long.parseLong(line[8]);
+                        DistributionCenter distributionCenter = dcService.findById(distributionCenterId);
+
+                        clothing.setDistributionCenter(distributionCenter);
                         clothingService.save(clothing);
+
+                        dcService.addClothingItem(distributionCenter);
                         break;
 
                     case "HygieneProduct":
                         HygieneProduct hygieneProduct = new HygieneProduct();
                         hygieneProduct.setDescription(line[1]);
-                        hygieneProduct.setType(line[6]);
+                        hygieneProduct.setType(line[5]);
+
+                        distributionCenterId = Long.parseLong(line[8]);
+                        distributionCenter = dcService.findById(distributionCenterId);
+
+                        hygieneProduct.setDistributionCenter(distributionCenter);
                         hygieneProductService.save(hygieneProduct);
+
+                        dcService.addHygieneProductItem(distributionCenter);
                         break;
 
                     case "Food":
                         Food food = new Food();
                         food.setDescription(line[1]);
-                        food.setQuantity(Integer.parseInt(line[2]));
-                        food.setUnitOfMeasure(line[3]);
-                        food.setExpirationDate(LocalDate.parse(line[4]));
+                        food.setQuantity(Integer.parseInt(line[4]));
+                        food.setUnitOfMeasure(line[2]);
+                        food.setExpirationDate(LocalDate.parse(line[3]));
+
+                        distributionCenterId = Long.parseLong(line[8]);
+                        distributionCenter = dcService.findById(distributionCenterId);
+
+                        food.setDistributionCenter(distributionCenter);
                         foodService.save(food);
+
+                        dcService.addFoodItem(distributionCenter);
                         break;
 
                     default:
-                        System.out.println("Unknown item type: " + item);
                         break;
                 }
             }

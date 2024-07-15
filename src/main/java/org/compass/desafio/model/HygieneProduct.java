@@ -18,4 +18,8 @@ public class HygieneProduct extends Item{
     @ManyToOne
     @JoinColumn(name = "dc_id")
     private DistributionCenter distributionCenter;
+
+    @ManyToOne
+    @JoinColumn(name = "shelter")
+    private Shelter shelter;
 }

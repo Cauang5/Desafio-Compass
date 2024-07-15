@@ -1,10 +1,10 @@
 package org.compass.desafio.repository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
+import org.compass.desafio.model.Clothing;
+import org.compass.desafio.model.DistributionCenter;
 import org.compass.desafio.model.Food;
+import org.compass.desafio.model.Shelter;
 
 import java.util.List;
 
@@ -78,6 +78,28 @@ public class FoodRepository {
         }
     }
 
+    public List<Food> findByDistributionCenter(DistributionCenter distributionCenter) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            TypedQuery<Food> query = em.createQuery("SELECT c FROM Food c WHERE c.distributionCenter = :distributionCenter", Food.class);
+            query.setParameter("distributionCenter", distributionCenter);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Food> findByShelter(Shelter shelter) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            TypedQuery<Food> query = em.createQuery("SELECT c FROM Food c WHERE c.shelter = :shelter", Food.class);
+            query.setParameter("shelter", shelter);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
     public boolean delete(Long id) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
@@ -101,7 +123,7 @@ public class FoodRepository {
         return false;
     }
 
-    public int getTotalQuantity() {
+    /*public int getTotalQuantity() {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
             Long totalQuantity = em.createQuery("SELECT SUM(c.quantity) FROM Clothing c", Long.class).getSingleResult();
@@ -112,5 +134,5 @@ public class FoodRepository {
         } finally {
             em.close();
         }
-    }
+    }*/
 }

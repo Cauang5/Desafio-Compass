@@ -1,11 +1,9 @@
 package org.compass.desafio.repository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import org.compass.desafio.model.Clothing;
 import org.compass.desafio.model.DistributionCenter;
+import org.compass.desafio.model.Shelter;
 
 import java.util.List;
 
@@ -72,10 +70,32 @@ public class ClothingRepository {
     public List<Clothing> findAll() {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
-            return em.createQuery("from Clothing", Clothing.class).getResultList();
+            return em.createQuery("from clothing_item", Clothing.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Clothing> findByDistributionCenter(DistributionCenter distributionCenter) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            TypedQuery<Clothing> query = em.createQuery("SELECT c FROM Clothing c WHERE c.distributionCenter = :distributionCenter", Clothing.class);
+            query.setParameter("distributionCenter", distributionCenter);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Clothing> findByShelter(Shelter shelter) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            TypedQuery<Clothing> query = em.createQuery("SELECT c FROM Clothing c WHERE c.shelter = :shelter", Clothing.class);
+            query.setParameter("shelter", shelter);
+            return query.getResultList();
         } finally {
             em.close();
         }
@@ -102,18 +122,5 @@ public class ClothingRepository {
             em.close();
         }
         return false;
-    }
-
-    public int getTotalQuantity() {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            Long totalQuantity = em.createQuery("SELECT SUM(c.quantity) FROM Clothing c", Long.class).getSingleResult();
-            return totalQuantity != null ? totalQuantity.intValue() : 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        } finally {
-            em.close();
-        }
     }
 }
