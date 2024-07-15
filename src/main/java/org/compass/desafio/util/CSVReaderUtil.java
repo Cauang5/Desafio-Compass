@@ -37,7 +37,7 @@ public class CSVReaderUtil {
                 switch (item) {
                     case "Clothing":
                         Clothing clothing = new Clothing();
-                        clothing.setDescription(line[0]);
+                        clothing.setDescription(line[1]);
                         clothing.setGender(line[6]);
                         clothing.setSize(line[7]);
 

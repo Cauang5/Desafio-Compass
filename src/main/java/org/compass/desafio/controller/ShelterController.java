@@ -59,25 +59,65 @@ public class ShelterController {
     private void save() {
         Shelter shelter = new Shelter();
         System.out.print("Name: ");
-        shelter.setName(sc.nextLine());
-        System.out.print("Addres: ");
-        shelter.setAddress(sc.nextLine());
+        String name = sc.nextLine();
+        if (name == null || name.trim().isEmpty()) {
+            System.out.println("Error: Shelter name cannot be empty.");
+            return;
+        }
+        shelter.setName(name);
+
+        System.out.print("Address: ");
+        String address = sc.nextLine();
+        if (address == null || address.trim().isEmpty()) {
+            System.out.println("Error: Shelter address cannot be empty.");
+            return;
+        }
+        shelter.setAddress(address);
+
         System.out.print("Shelter Manager: ");
-        shelter.setShelterManager(sc.nextLine());
+        String manager = sc.nextLine();
+        if (manager == null || manager.trim().isEmpty()) {
+            System.out.println("Error: Shelter manager cannot be empty.");
+            return;
+        }
+        shelter.setShelterManager(manager);
+
         System.out.print("Phone: ");
-        shelter.setPhone(sc.nextLine());
+        String phone = sc.nextLine();
+        if (phone == null || phone.trim().isEmpty()) {
+            System.out.println("Error: Shelter phone cannot be empty.");
+            return;
+        }
+        shelter.setPhone(phone);
+
         System.out.print("Email: ");
-        shelter.setEmail(sc.nextLine());
+        String email = sc.nextLine();
+        if (email == null || email.trim().isEmpty()) {
+            System.out.println("Error: Shelter email cannot be empty.");
+            return;
+        }
+        shelter.setEmail(email);
+
         System.out.print("Capacity: ");
-        shelter.setCapacity(sc.nextInt());
+        int capacity = sc.nextInt();
+        if (capacity <= 0) {
+            System.out.println("Error: Shelter capacity must be a positive number.");
+            return;
+        }
+        shelter.setCapacity(capacity);
         sc.nextLine();
+
         System.out.print("Occupancy (%): ");
-        shelter.setOccupancy(sc.nextInt());
+        int occupancy = sc.nextInt();
+        if (occupancy < 0 || occupancy > 100) {
+            System.out.println("Error: Shelter occupancy must be between 0 and 100.");
+            return;
+        }
+        shelter.setOccupancy(occupancy);
         sc.nextLine();
 
         shelterService.save(shelter);
         System.out.println("Shelter has been created!");
-
     }
 
     private void findAll() {
@@ -103,36 +143,73 @@ public class ShelterController {
         System.out.print("Shelter update ID: ");
         Long id = sc.nextLong();
         sc.nextLine();
+
         Shelter shelter = shelterService.findById(id);
+
         if (shelter != null) {
             System.out.print("Name: ");
-            shelter.setName(sc.nextLine());
-            System.out.print("Addres: ");
-            shelter.setName(sc.nextLine());
+            String name = sc.nextLine();
+            if (name == null || name.trim().isEmpty()) {
+                System.out.println("Error: Shelter name cannot be empty.");
+                return;
+            }
+            shelter.setName(name);
+
+            System.out.print("Address: ");
+            String address = sc.nextLine();
+            if (address == null || address.trim().isEmpty()) {
+                System.out.println("Error: Shelter address cannot be empty.");
+                return;
+            }
+            shelter.setAddress(address);
+
             System.out.print("Shelter Manager: ");
-            shelter.setName(sc.nextLine());
+            String manager = sc.nextLine();
+            if (manager == null || manager.trim().isEmpty()) {
+                System.out.println("Error: Shelter manager cannot be empty.");
+                return;
+            }
+            shelter.setShelterManager(manager);
+
             System.out.print("Phone: ");
-            shelter.setName(sc.nextLine());
+            String phone = sc.nextLine();
+            if (phone == null || phone.trim().isEmpty()) {
+                System.out.println("Error: Shelter phone cannot be empty.");
+                return;
+            }
+            shelter.setPhone(phone);
+
             System.out.print("Email: ");
-            shelter.setName(sc.nextLine());
+            String email = sc.nextLine();
+            if (email == null || email.trim().isEmpty()) {
+                System.out.println("Error: Shelter email cannot be empty.");
+                return;
+            }
+            shelter.setEmail(email);
+
             System.out.print("Capacity: ");
-            shelter.setCapacity(sc.nextInt());
-            sc.nextLine();
-            System.out.print("Occupancy (%): ");
-            shelter.setOccupancy(sc.nextInt());
+            int capacity = sc.nextInt();
+            if (capacity <= 0) {
+                System.out.println("Error: Shelter capacity must be a positive number.");
+                return;
+            }
+            shelter.setCapacity(capacity);
             sc.nextLine();
 
-            shelter.setName(shelter.getName());
-            shelter.setAddress(shelter.getAddress());
-            shelter.setShelterManager(shelter.getShelterManager());
-            shelter.setPhone(shelter.getPhone());
-            shelter.setEmail(shelter.getEmail());
-            shelter.setCapacity(shelter.getCapacity());
-            shelter.setOccupancy(shelter.getOccupancy());
+            System.out.print("Occupancy (%): ");
+            int occupancy = sc.nextInt();
+            if (occupancy < 0 || occupancy > 100) {
+                System.out.println("Error: Shelter occupancy must be between 0 and 100.");
+                return;
+            }
+            shelter.setOccupancy(occupancy);
+            sc.nextLine();
 
             shelterService.update(shelter);
+            System.out.println("Shelter has been updated!");
+        } else {
+            System.out.println("Shelter not found");
         }
-
     }
 
     private void delete() {

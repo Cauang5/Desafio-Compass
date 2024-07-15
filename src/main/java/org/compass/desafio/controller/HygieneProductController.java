@@ -49,7 +49,7 @@ public class HygieneProductController {
                     update();
                     break;
                 case 5:
-                    // delete();
+                    delete();
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -302,6 +302,16 @@ public class HygieneProductController {
 
             System.out.println("Hygiene Product has been updated!");
 
+        } else {
+            System.out.println("Hygiene Product not found.");
+        }
+    }
+    private void delete() { // Complementar, inserir lógic para deletar
+        System.out.print("Hygiene Product ID to be deleted: ");
+        Long id = sc.nextLong();
+        sc.nextLine();
+        if (hygieneProductService.delete(id)) {
+            System.out.println("Hygiene Product removed successfully");
         } else {
             System.out.println("Hygiene Product not found.");
         }

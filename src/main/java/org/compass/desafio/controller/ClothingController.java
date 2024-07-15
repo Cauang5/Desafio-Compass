@@ -47,7 +47,7 @@ public class ClothingController {
                     update();
                     break;
                 case 5:
-                 // delete();
+                    delete();
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -317,36 +317,14 @@ public class ClothingController {
         }
     }
 
-    /*private void delete() {
-        System.out.println("Delete clothes from: ");
-        System.out.println("1. Distribution Center");
-        System.out.println("2. Shelter");
-        System.out.print("Choose an option: ");
-        int option = sc.nextInt();
+    private void delete() { // Complementar, inserir lógic para deletar
+        System.out.print("Clothing ID to be deleted: ");
+        Long id = sc.nextLong();
         sc.nextLine();
-
-        if (option == 1) {
-            System.out.print("ID do Centro de Distribuição: ");
-            Long distributionCenterId = sc.nextLong();
-            sc.nextLine();  // Consumir a nova linha
-
-            // Buscar o Centro de Distribuição pelo ID
-            DistributionCenterService dcService = new DistributionCenterService();
-            DistributionCenter distributionCenter = dcService.findById(distributionCenterId);
-
-            if (distributionCenter != null) {
-                // Listar as roupas disponíveis no centro de distribuição
-                List<Clothing> clothingItems = distributionCenter.getClothing();
-                if (clothingItems.isEmpty()) {
-                    System.out.println("Não há roupas no centro de distribuição.");
-                    return;
-                }
-
-                System.out.println("Roupas disponíveis no centro de distribuição:");
-                for (int i = 0; i < clothingItems.size(); i++) {
-                    System.out.println((i + 1) + ". " + clothingItems.get(i).getDescription());
-                }
-            }
+        if (clothingService.delete(id)) {
+            System.out.println("Clothing removed successfully");
+        } else {
+            System.out.println("Clothing not found.");
         }
-    }*/
+    }
 }

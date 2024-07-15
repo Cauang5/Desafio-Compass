@@ -48,7 +48,7 @@ public class FoodController {
                     update();
                     break;
                 case 5:
-                    // delete();
+                    delete();
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -334,6 +334,16 @@ public class FoodController {
 
             System.out.println("Food has been updated!");
 
+        } else {
+            System.out.println("Food not found.");
+        }
+    }
+    private void delete() { // Complementar, inserir lógic para deletar
+        System.out.print("Food ID to be deleted: ");
+        Long id = sc.nextLong();
+        sc.nextLine();
+        if (foodService.delete(id)) {
+            System.out.println("Food removed successfully");
         } else {
             System.out.println("Food not found.");
         }
