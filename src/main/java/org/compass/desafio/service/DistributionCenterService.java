@@ -9,6 +9,7 @@ public class DistributionCenterService {
 
     private final DistributionCenterRepository distributionCenterRepository = new DistributionCenterRepository();
 
+
     public DistributionCenter save(DistributionCenter distributionCenter) {
         return distributionCenterRepository.save(distributionCenter);
     }
@@ -29,71 +30,56 @@ public class DistributionCenterService {
         return distributionCenterRepository.delete(id);
     }
 
-    public boolean addItem(Long id, String item, int quantity) {
-        DistributionCenter dc = distributionCenterRepository.findById(id);
-
-        switch (item) {
-            case "Clothing":
-                if (dc.getClothingStock() + quantity > 1000) {
-                    System.out.println("Exceeds capacity");
-                    return false;
-                }
-                dc.setClothingStock(dc.getClothingStock() + quantity);
-                break;
-
-            case "Food":
-                if (dc.getFoodStock() + quantity > 1000) {
-                    return false; // Exceeds capacity
-                }
-                dc.setFoodStock(dc.getFoodStock() + quantity);
-                break;
-
-            case "HygieneProduct":
-                if (dc.getHygieneProductStock() + quantity > 1000) {
-                    return false; // Exceeds capacity
-                }
-                dc.setHygieneProductStock(dc.getHygieneProductStock() + quantity);
-                break;
-
-            default:
-                System.out.println("Invalid item type");
-                return false;
+    public void addClothingItem(DistributionCenter distributionCenter){
+        if(distributionCenter != null){
+            if (distributionCenter.getClothingStock() < 4){
+                distributionCenter.setClothingStock(distributionCenter.getClothingStock() +1);
+                distributionCenterRepository.update(distributionCenter);
+            }
         }
-        distributionCenterRepository.update(dc);
-        return true;
     }
 
-    public boolean removeItem(Long id, String item, int quantity) {
-        DistributionCenter dc = distributionCenterRepository.findById(id);
-
-        switch (item) {
-            case "Clothing":
-                if (dc.getClothingStock() < quantity || dc.getClothingStock() < 0) {
-                    return false;
-                }
-                dc.setClothingStock(dc.getClothingStock() - quantity);
-                break;
-
-            case "Food":
-                if (dc.getFoodStock() < quantity || dc.getFoodStock() < 0) {
-                    return false; // Not enough items to remove
-                }
-                dc.setFoodStock(dc.getFoodStock() - quantity);
-                break;
-
-            case "HygieneProduct":
-                if (dc.getHygieneProductStock() < quantity || dc.getHygieneProductStock() < 0) {
-                    return false;
-                }
-                dc.setHygieneProductStock(dc.getHygieneProductStock() - quantity);
-                break;
-
-            default:
-                System.out.println("Invalid item type");
-                return false;
+    public void addFoodItem(DistributionCenter distributionCenter){
+        if(distributionCenter != null){
+            distributionCenter.setFoodStock(distributionCenter.getFoodStock() +1);
+            distributionCenterRepository.update(distributionCenter);
         }
-        distributionCenterRepository.update(dc);
-        return true;
+    }
+
+    public void addHygieneProductItem(DistributionCenter distributionCenter){
+        if(distributionCenter != null ){
+            if (distributionCenter.getHygieneProductStock() <= 5){
+                distributionCenter.setHygieneProductStock(distributionCenter.getHygieneProductStock() +1);
+                distributionCenterRepository.update(distributionCenter);
+            }
+        }
+    }
+
+    public void removeClothingItem(DistributionCenter distributionCenter) {
+        if (distributionCenter != null) {
+            if (distributionCenter.getClothingStock() > 0) {
+                distributionCenter.setClothingStock(distributionCenter.getClothingStock() - 1);
+                distributionCenterRepository.update(distributionCenter);
+            }
+        }
+    }
+
+    public void removeFoodItem(DistributionCenter distributionCenter) {
+        if (distributionCenter != null) {
+            if (distributionCenter.getFoodStock() > 0) {
+                distributionCenter.setFoodStock(distributionCenter.getFoodStock() - 1);
+                distributionCenterRepository.update(distributionCenter);
+            }
+        }
+    }
+
+    public void removeHygieneProductItem(DistributionCenter distributionCenter) {
+        if (distributionCenter != null) {
+            if (distributionCenter.getHygieneProductStock() > 0) {
+                distributionCenter.setHygieneProductStock(distributionCenter.getHygieneProductStock() - 1);
+                distributionCenterRepository.update(distributionCenter);
+            }
+        }
     }
 }
 

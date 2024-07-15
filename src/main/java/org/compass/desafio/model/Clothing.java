@@ -19,4 +19,9 @@ public class Clothing extends Item {
     @ManyToOne
     @JoinColumn(name = "dc_id")
     private DistributionCenter distributionCenter;
+
+    @ManyToOne
+    @JoinColumn(name = "shelter")
+    private Shelter shelter;
+
 }

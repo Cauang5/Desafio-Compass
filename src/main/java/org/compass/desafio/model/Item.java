@@ -13,12 +13,14 @@ public class Item { // A classe Item é abstrata para não ser instanciada o obj
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // Define a obrigatoriadade da coluna não ser nula
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "dc_id")
     private DistributionCenter distributionCenter;
+
+    @ManyToOne
+    @JoinColumn(name = "shelter")
+    private Shelter shelter;
 
 }

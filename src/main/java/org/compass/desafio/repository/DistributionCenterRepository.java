@@ -12,6 +12,7 @@ public class DistributionCenterRepository {
 
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("desafio compass");
 
+
     public DistributionCenter save(DistributionCenter distributionCenter) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
@@ -100,4 +101,21 @@ public class DistributionCenterRepository {
         }
         return false;
     }
+
+    public boolean findByEntity(DistributionCenter distributionCenter){
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        return em.createQuery("""
+                    SELECT COUNT(dc) FROM DistributionCenter dc
+                    WHERE dc.name = :name
+                    AND dc.cep = :cep
+                """, Long.class)
+                .setParameter("name", distributionCenter.getName())
+                .setParameter("cep", distributionCenter.getCep())
+                .getSingleResult() >= 1L;
+    }
+
+
+
+
 }

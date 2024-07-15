@@ -1,28 +1,27 @@
 package org.compass.desafio.repository;
 
-import jakarta.persistence.*;
-import org.compass.desafio.model.DistributionCenter;
-import org.compass.desafio.model.Food;
-import org.compass.desafio.model.HygieneProduct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import org.compass.desafio.model.Shelter;
-
 
 import java.util.List;
 
-public class HygieneProductRepository {
+public class ShelterRepository {
 
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("desafio compass");
 
-    public HygieneProduct save(HygieneProduct hygieneProduct) {
+    public Shelter save(Shelter shelter) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = em.getTransaction();
             transaction.begin();
-            em.persist(hygieneProduct);
+            em.persist(shelter);
             transaction.commit();
-            return hygieneProduct;
+            return shelter;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -34,16 +33,16 @@ public class HygieneProductRepository {
         }
     }
 
-    public HygieneProduct update(HygieneProduct hygieneProduct) {
+    public Shelter update(Shelter shelter) {
         EntityManager em = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = null;
 
         try {
             transaction = em.getTransaction();
             transaction.begin();
-            HygieneProduct updatedClothing = em.merge(hygieneProduct);
+            Shelter updatedShelter = em.merge(shelter);
             transaction.commit();
-            return updatedClothing;
+            return updatedShelter;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -55,10 +54,10 @@ public class HygieneProductRepository {
         }
     }
 
-    public HygieneProduct findById(Long id) {
+    public Shelter findById(Long id) {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
-            return em.find(HygieneProduct.class, id);
+            return em.find(Shelter.class, id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -67,35 +66,13 @@ public class HygieneProductRepository {
         }
     }
 
-    public List<HygieneProduct> findAll() {
+    public List<Shelter> findAll() {
         EntityManager em = entityManagerFactory.createEntityManager();
         try {
-            return em.createQuery("from HygieneProduct", HygieneProduct.class).getResultList();
+            return em.createQuery("from Shelter", Shelter.class).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<HygieneProduct> findByDistributionCenter(DistributionCenter distributionCenter) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            TypedQuery<HygieneProduct> query = em.createQuery("SELECT c FROM HygieneProduct  c WHERE c.distributionCenter = :distributionCenter", HygieneProduct.class);
-            query.setParameter("distributionCenter", distributionCenter);
-            return query.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<HygieneProduct> findByShelter(Shelter shelter) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        try {
-            TypedQuery<HygieneProduct> query = em.createQuery("SELECT c FROM HygieneProduct c WHERE c.shelter = :shelter", HygieneProduct.class);
-            query.setParameter("shelter", shelter);
-            return query.getResultList();
         } finally {
             em.close();
         }
@@ -107,9 +84,9 @@ public class HygieneProductRepository {
         try {
             transaction = em.getTransaction();
             transaction.begin();
-            HygieneProduct hygieneProduct = em.find(HygieneProduct.class, id);
-            if (hygieneProduct != null) {
-                em.remove(hygieneProduct);
+            Shelter shelter = em.find(Shelter.class, id);
+            if (shelter != null) {
+                em.remove(shelter);
                 transaction.commit();
                 return true;
             }

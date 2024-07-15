@@ -20,12 +20,18 @@ public class DistributionCenter {
     private String state;
     private String cep;
 
-    private int ClothingStock = 1000;
-    private int FoodStock = 1000;
-    private int HygieneProductStock = 1000;
+    private int ClothingStock;
+    private int FoodStock;
+    private int HygieneProductStock;
 
-    @OneToMany(mappedBy = "distributionCenter")
-    private List<Item> items;
+    @OneToMany(mappedBy = "distributionCenter", fetch = FetchType.EAGER)
+    private List<Clothing> clothing;
+
+    @OneToMany(mappedBy = "distributionCenter", fetch = FetchType.EAGER)
+    private List<Food> foods;
+
+    @OneToMany(mappedBy = "distributionCenter", fetch = FetchType.EAGER)
+    private List<HygieneProduct> hygieneProducts;
 
     @Override
     public String toString() {

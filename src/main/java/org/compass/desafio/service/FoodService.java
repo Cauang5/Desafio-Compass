@@ -2,7 +2,9 @@ package org.compass.desafio.service;
 
 import jakarta.persistence.EntityManager;
 import org.compass.desafio.model.Clothing;
+import org.compass.desafio.model.DistributionCenter;
 import org.compass.desafio.model.Food;
+import org.compass.desafio.model.Shelter;
 import org.compass.desafio.repository.FoodRepository;
 
 import java.util.List;
@@ -12,9 +14,6 @@ public class FoodService {
     private final FoodRepository foodRepository = new FoodRepository();
 
     public Food save(Food food) {
-        if (getTotalQuantity() + food.getQuantity() > 1000) {
-            throw new IllegalArgumentException("Clothing limit exceeded, cannot add more!");
-        }
         return foodRepository.save(food);
     }
 
@@ -25,15 +24,20 @@ public class FoodService {
     public Food findById(Long id) {
         return foodRepository.findById(id);
     }
+
     public List<Food> findAll() {
         return foodRepository.findAll();
     }
 
-    public boolean delete(Long id) {
-        return foodRepository.delete(id);
+    public List<Food> findByDistributionCenter(DistributionCenter distributionCenter) {
+        return foodRepository.findByDistributionCenter(distributionCenter);
     }
 
-    public int getTotalQuantity() {
-        return foodRepository.getTotalQuantity();
+    public List<Food> findByShelter(Shelter shelter) {
+        return foodRepository.findByShelter(shelter);
+    }
+
+    public boolean delete(Long id) {
+        return foodRepository.delete(id);
     }
 }

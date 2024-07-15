@@ -16,7 +16,6 @@ public class DistributionCenterInitializer {
         dc1.setState("Rio Grande do Sul");
         dc1.setCep("92032-420");
 
-        repository.save(dc1);
 
         DistributionCenter dc2 = new DistributionCenter();
         dc2.setName("Prosperidade");
@@ -26,7 +25,6 @@ public class DistributionCenterInitializer {
         dc2.setState("Rio Grande do Sul");
         dc2.setCep("90119-900");
 
-        repository.save(dc2);
 
         DistributionCenter dc3 = new DistributionCenter();
         dc3.setName("Reconstrução");
@@ -36,8 +34,10 @@ public class DistributionCenterInitializer {
         dc3.setState("Rio Grande do Sul");
         dc3.setCep("94920-170");
 
-        repository.save(dc3);
-
-
+        if(repository.findByEntity(dc1) == false || repository.findByEntity(dc2) == false|| repository.findByEntity(dc3) == false){
+            repository.save(dc1);
+            repository.save(dc2);
+            repository.save(dc3);
+        }
     }
 }

@@ -1,4 +1,4 @@
-itemType,description,unitOfMeasure,expirationDate,quantity,type,gender,size,distributionCenterId
-Food,Apple,KILO,2024-12-31,50,,,,1
-HygieneProduct,Colgate,,,,PASTA_DE_DENTE,,,2
+item,description,unitOfMeasure,expirationDate,quantity,type,gender,size,distributionCenterId
+Food,Apple,kilos,2024-12-31,50,,,,1
+HygieneProduct,Colgate,,,,pasta de dente,,,2
 Clothing,Camisa,,,,,M,P,3
